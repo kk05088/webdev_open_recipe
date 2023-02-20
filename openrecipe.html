@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Open Recipe</title>
+	<img src="logo.png" alt="Open Recipe Logo" width="400" height="200">
+	<link rel="stylesheet" href="style.css">
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+	
+	
+	<div id="weather-info"></div>
+	<div>
+	<h2>Preferences</h2>	
+	<fieldset>
+		<input type="radio" id="carnivore" name="preference" value="carnivore">
+		<label for="carnivore">Carnivore</label>
+		<input type="radio" id="vegetarian" name="preference" value="vegetarian">
+		<label for="vegetarian">Vegetarian</label>
+		<input type="radio" id="vegan" name="preference" value="vegan">
+		<label for="vegan">Vegan</label>
+		<input type="radio" id="karachiite" name="preference" value="karachiite">
+		<label for="karachiite">Karachiite</label>
+	</fieldset>
+	</div>
+	
+	<div>
+		<label for="dishes">Frequently Ordered Dishes:</label>
+		<select id="dishes" name="dishes">
+			<option value="biryani">Biryani</option>
+			<option value="nihari">Nihari</option>
+			<option value="karahi">Karahi</option>
+			<option value="qorma">Qorma</option>
+			<option value="saag">Saag</option>
+			<option value="haleem">Haleem</option>
+			<option value="tikka">Tikka</option>
+			<option value="kabab">Kabab</option>
+			<option value="paratha">Paratha</option>
+			<option value="roti">Roti</option>
+		</select>
+	</div>
+	
+	<div>
+		<input type="submit" value="Submit">
+	</div>
+
+	<script>
+		$(document).ready(function(){
+		  function updateWeather(){
+			// Call the API to get weather information for Karachi
+			$.get("https://api.weatherapi.com/v1/current.json?key=f2af03c21fd743a2833180903232002&q=Karachi&aqi=no", function(data, status){
+			  // Update the weather information in the HTML
+			  $("#weather-info").html("<h2>Current Weather in Karachi</h2><p>Temperature: " + data.current.temp_c + " &deg;C</p><p>Humidity: " + data.current.humidity + "%</p><p>Wind Speed: " + data.current.wind_kph + " km/h</p>");
+			});
+		  }
+		  
+		  // Call the updateWeather function initially
+		  updateWeather();
+		  
+		  // Call the updateWeather function every five minutes
+		  setInterval(function(){
+			updateWeather();
+		  }, 300000);
+		});
+	</script>
+	<!-- <script>
+		$(document).ready(function() {
+		  // Call the API to get weather information for Karachi
+		  function getWeather() {
+			$.get('https://api.weatherapi.com/v1/current.json?key=f2af03c21fd743a2833180903232002&q=Karachi&aqi=no', function(data){
+			  // Update the weather information in the HTML
+			  var weatherHtml = '<h3>Current Weather in Karachi</h3>';
+			  weatherHtml += '<p>Temperature: ' + data.main.temp + ' &deg;C</p>';
+			  weatherHtml += '<p>Humidity: ' + data.main.humidity + '%</p>';
+			  weatherHtml += '<p>Wind Speed: ' + data.wind.speed + ' m/s</p>';
+			  $('#weather-info').html(weatherHtml);
+			});
+		  }
+	  
+		  // Call the getWeather function initially
+		  getWeather();
+	  
+		  // Call the getWeather function every five minutes
+		  setInterval(function() {
+			getWeather();
+		  }, 300000);
+		});
+	</script> -->
+	  	  
+</body>
+</html>
